@@ -26,26 +26,50 @@
  * @return {number[]}
  */
 
-function TreeNode(val) {
-    this.val = val;
-    this.left = this.right = null;
-}
 
 var averageOfLevels = function (root) {
-    var sumArr = [];
-    var countArr = [];
-    var sum = function (node, level) {
-        if (!node) return;
-        if (!sumArr[level]) sumArr[level] = 0;
-        sumArr[level] += node.val;
-        if (!countArr[level]) countArr[level] = 0;
-        countArr[level]++;
-        sum(node.left, level + 1);
-        sum(node.right, level + 1);
-    };
-    sum(root, 0);
-    var meanArr = sumArr.map((sum, level) => sum / countArr[level]);
-    return meanArr;
+    if (!root) {
+        return null;
+    }
+    let result_arr = [];
+    var queue = [root];
+    while (queue.length > 0) {
+        let len = queue.length;
+        let sum = 0;
+        for (let i = 0; i < len; i++) {
+            let node = queue.shift();
+            sum += node.val;
+            if (node.left) {
+                queue.push(node.left);
+            }
+            if (node.right) {
+                queue.push(node.right);
+            }
+        }
+        result_arr.push(sum / len);
+    }
+    return result_arr;
+    // let sumArr = [];
+    // let countArr = [];
+    // let sum = function (node, level) {
+    //     if (!node) {
+    //         return;
+    //     }
+    //
+    //     if (!sumArr[level]) {
+    //         sumArr[level] = 0;
+    //     }
+    //     sumArr[level] += node.val;
+    //     if (!countArr[level]) {
+    //         countArr[level] = 0;
+    //     }
+    //     countArr[level]++;
+    //     sum(node.left, level + 1);
+    //     sum(node.right, level + 1);
+    // };
+    // sum(root, 0);
+    // let meanArr = sumArr.map((sum, level) => sum / countArr[level]);
+    // return meanArr;
 };
 
 console.log(averageOfLevels(new TreeNode(3)));
