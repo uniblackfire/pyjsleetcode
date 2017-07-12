@@ -26,7 +26,7 @@
  * @return {number[]}
  */
 
-
+// BFS
 var averageOfLevels = function (root) {
     if (!root) {
         return null;
