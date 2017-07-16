@@ -32,7 +32,7 @@ var averageOfLevels = function (root) {
         return null;
     }
     let result_arr = [];
-    var queue = [root];
+    let queue = [root];
     while (queue.length > 0) {
         let len = queue.length;
         let sum = 0;
