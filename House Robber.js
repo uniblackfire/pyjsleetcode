@@ -40,10 +40,12 @@ var rob = function (nums) {
     let cache = new Array(n);
     cache[0] = nums[0];
     cache[1] = Math.max(nums[0], nums[1]);
+    console.log(cache);
     for (let i = 2; i < n; i++) {
         cache[i] = Math.max(cache[i - 2] + nums[i], cache[i - 1]);
+        console.log(cache);
     }
     return cache[n - 1];
 };
 
-console.log(rob([2, 1, 1, 2])); //3
+console.log(rob([2, 1, 1, 2, 3])); //3
