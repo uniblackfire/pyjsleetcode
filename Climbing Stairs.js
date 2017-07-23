@@ -4,11 +4,12 @@
 //
 // Note: Given n will be a positive integer.
 
-var climbStairs2 = function(n) {
-    a = b = 1
+var climbStairs2 = function (n) {
+    let a = 1;
+    let b = 1;
     while (n--)
-        a = (b += a) - a
-    return a
+        a = (b += a) - a;
+    return a;
 };
 /**
  * @param {number} n
