@@ -20,31 +20,26 @@
  * @return {number}
  */
 var coinChange = function (coins, amount) {
-    let amountDict = {};
+    let amountDict = new Array(amount).fill(0);
 
     function recursive(coins, amount) {
         if (amount === 0) {
             return 0;
         }
-        if (amountDict.hasOwnProperty(amount)) {
-            return amountDict[amount];
+        if (amountDict[amount - 1] != 0) {
+            return amountDict[amount - 1];
         }
-        let n = Number.MAX_VALUE;
+        let min = Number.MAX_VALUE;
         for (let coin of coins) {
-            let curr = 0;
             if (amount >= coin) {
                 let next = recursive(coins, amount - coin);
-                if (next >= 0) {
-                    curr = 1 + next; // 1+coinChange(amount-that_coin_value)
+                if (next >= 0 && next < min) {
+                    min = 1 + next; // 1+coinChange(amount-that_coin_value)
                 }
             }
-            if (curr > 0) {
-                n = Math.min(n, curr);
-            }
         }
-        let finalCount = (n === Number.MAX_VALUE) ? -1 : n;
-        amountDict[amount] = finalCount;
-        return finalCount;
+        amountDict[amount - 1] = (min === Number.MAX_VALUE) ? -1 : min;
+        return amountDict[amount - 1];
     }
 
     return recursive(coins, amount);
@@ -100,4 +95,4 @@ var coinChange = function (coins, amount) {
 // }
 
 
-console.log(coinChange([186, 419, 83, 408], 6249));
+console.log(coinChange([186, 419, 83, 408], 6248));
