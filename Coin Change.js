@@ -30,7 +30,7 @@ var coinChange = function (coins, amount) {
         if (amountDict.hasOwnProperty(amount)) {
             return amountDict[amount];
         }
-        let n = amount + positive_val;
+        let n = Number.MAX_VALUE;
         for (let coin of coins) {
             let curr = 0;
             if (amount >= coin) {
@@ -43,7 +43,7 @@ var coinChange = function (coins, amount) {
                 n = Math.min(n, curr);
             }
         }
-        let finalCount = (n === amount + positive_val) ? -1 : n;
+        let finalCount = (n === Number.MAX_VALUE) ? -1 : n;
         amountDict[amount] = finalCount;
         return finalCount;
     }
