@@ -21,6 +21,7 @@
  */
 var coinChange = function (coins, amount) {
     let amountDict = {};
+    const positive_val = 1;
 
     function recursive(coins, amount) {
         if (amount === 0) {
@@ -29,20 +30,20 @@ var coinChange = function (coins, amount) {
         if (amountDict.hasOwnProperty(amount)) {
             return amountDict[amount];
         }
-        let n = amount + 1;
+        let n = amount + positive_val;
         for (let coin of coins) {
             let curr = 0;
             if (amount >= coin) {
                 let next = recursive(coins, amount - coin);
                 if (next >= 0) {
-                    curr = 1 + next;
+                    curr = 1 + next; // 1+coinChange(amount-that_coin_value)
                 }
             }
             if (curr > 0) {
                 n = Math.min(n, curr);
             }
         }
-        let finalCount = (n === amount + 1) ? -1 : n;
+        let finalCount = (n === amount + positive_val) ? -1 : n;
         amountDict[amount] = finalCount;
         return finalCount;
     }
