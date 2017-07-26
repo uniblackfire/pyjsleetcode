@@ -21,7 +21,6 @@
  */
 var coinChange = function (coins, amount) {
     let amountDict = {};
-    const positive_val = 1;
 
     function recursive(coins, amount) {
         if (amount === 0) {
