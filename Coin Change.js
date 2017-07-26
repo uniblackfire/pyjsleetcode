@@ -22,7 +22,7 @@
 var coinChange = function (coins, amount) {
     let amountDict = {};
 
-    function recur(coins, amount) {
+    function recursive(coins, amount) {
         if (amount === 0) {
             return 0;
         }
@@ -33,7 +33,7 @@ var coinChange = function (coins, amount) {
         for (let coin of coins) {
             let curr = 0;
             if (amount >= coin) {
-                let next = recur(coins, amount - coin);
+                let next = recursive(coins, amount - coin);
                 if (next >= 0) {
                     curr = 1 + next;
                 }
@@ -47,7 +47,7 @@ var coinChange = function (coins, amount) {
         return finalCount;
     }
 
-    return recur(coins, amount);
+    return recursive(coins, amount);
 };
 
 // This is a very classic dynamic programming algorithm. However, for someone not familiar with the concept, it can be tricky. Here we tackle the problem recursively, for each coin, if I take that coin into account, then the fewest number of coins we can get is 1+coinChange(amount-that_coin_value). So for all the coins, we return the smallest number as min(1+coinChange(amount-coin1_value), 1+coinChange(amount-coin2_value, ......).
