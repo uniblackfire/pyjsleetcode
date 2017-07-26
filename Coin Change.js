@@ -26,7 +26,7 @@ var coinChange = function (coins, amount) {
         if (amount === 0) {
             return 0;
         }
-        if (amountDict[amount - 1] != 0) {
+        if (amountDict[amount - 1] !== 0) {
             return amountDict[amount - 1];
         }
         let min = Number.MAX_VALUE;
