@@ -19,31 +19,46 @@
  * @param {number} amount
  * @return {number}
  */
-var coinChange = function (coins, amount) {
-    let amountDict = new Array(amount).fill(0);
+// var coinChange = function (coins, amount) {
+//     let amountDict = new Array(amount).fill(0);
+//
+//     function recursive(coins, amount) {
+//         if (amount === 0) {
+//             return 0;
+//         }
+//         if (amountDict[amount - 1] !== 0) {
+//             return amountDict[amount - 1];
+//         }
+//         let min = Number.MAX_VALUE;
+//         for (let coin of coins) {
+//             if (amount >= coin) {
+//                 let next = recursive(coins, amount - coin);
+//                 if (next >= 0 && next < min) {
+//                     min = 1 + next; // 1+coinChange(amount-that_coin_value)
+//                 }
+//             }
+//         }
+//         amountDict[amount - 1] = (min === Number.MAX_VALUE) ? -1 : min;
+//         return amountDict[amount - 1];
+//     }
+//
+//     return recursive(coins, amount);
+// };
 
-    function recursive(coins, amount) {
-        if (amount === 0) {
-            return 0;
-        }
-        if (amountDict[amount - 1] !== 0) {
-            return amountDict[amount - 1];
-        }
-        let min = Number.MAX_VALUE;
-        for (let coin of coins) {
-            if (amount >= coin) {
-                let next = recursive(coins, amount - coin);
-                if (next >= 0 && next < min) {
-                    min = 1 + next; // 1+coinChange(amount-that_coin_value)
-                }
+var coinChange = function (coins, amount) {
+    let dp = new Array(amount + 1).fill(Number.MAX_VALUE);
+    dp[0] = 0;
+
+    for (let i = 1; i <= amount; i++) {
+        for (let j = 0; j < coins.length; j++) {
+            if (coins[j] <= i) {
+                dp[i] = Math.min(dp[i], dp[i - coins[j]] + 1);
             }
         }
-        amountDict[amount - 1] = (min === Number.MAX_VALUE) ? -1 : min;
-        return amountDict[amount - 1];
     }
-
-    return recursive(coins, amount);
+    return dp[amount] > amount ? -1 : dp[amount];
 };
+
 
 // This is a very classic dynamic programming algorithm. However, for someone not familiar with the concept, it can be tricky. Here we tackle the problem recursively, for each coin, if I take that coin into account, then the fewest number of coins we can get is 1+coinChange(amount-that_coin_value). So for all the coins, we return the smallest number as min(1+coinChange(amount-coin1_value), 1+coinChange(amount-coin2_value, ......).
 //
@@ -95,4 +110,4 @@ var coinChange = function (coins, amount) {
 // }
 
 
-console.log(coinChange([186, 419, 83, 408], 6248));
+console.log(coinChange([1, 2, 3], 6));
