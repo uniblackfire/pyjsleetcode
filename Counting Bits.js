@@ -28,7 +28,7 @@ var countBits = function (num) {
             pow++;
         } else {
             let base_index = 2 ** (pow - 1);
-            result[index] = result[index - base_index] + result[base_index];
+            result[index] = result[index - base_index] + 1;
         }
         index++;
     }
