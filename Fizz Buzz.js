@@ -34,13 +34,13 @@ var fizzBuzz = function (n) {
     let result = new Array(n).fill('');
     for (let i = 1; i <= n; i++) {
         if (i % 3 === 0) {
-            result[i-1] += 'Fizz';
+            result[i - 1] += 'Fizz';
         }
         if (i % 5 === 0) {
-            result[i-1] += 'Buzz';
+            result[i - 1] += 'Buzz';
         }
-        if (!result[i-1]) {
-            result[i-1] = i.toString();
+        if (!result[i - 1]) {
+            result[i - 1] = i.toString();
         }
 
     }
