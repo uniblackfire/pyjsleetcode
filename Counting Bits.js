@@ -21,14 +21,13 @@ var countBits = function (num) {
         return result;
     }
     let index = 1;
-    let pow = 0;
+    let pow2 = 1;
     while (index <= num) {
-        if (2 ** pow === index) {
+        if (pow2 === index) {
             result[index] = 1;
-            pow++;
+            pow2 <<= 1; // pow2 * 2
         } else {
-            let base_index = 2 ** (pow - 1);
-            result[index] = result[index - base_index] + 1;
+            result[index] = result[index - (pow2 >> 1)] + 1;
         }
         index++;
     }
@@ -38,22 +37,21 @@ var countBits = function (num) {
 console.log(countBits(16)); // [0,1,1,2,1,2,2,3,1,2,2,3,2,3,3,4,1]
 
 
-
-    // let result = new Array(num + 1);
-    // result[0] = 0;
-    // if (num === 0) {
-    //     return result;
-    // }
-    // let index = 1;
-    // let power2 = 1;
-    // while (index <= num) {
-    //     if (power2 === index) {
-    //         result[index] = 1;
-    //         power2 *= 2;
-    //     } else {
-    //         let base_index = power2 / 2;
-    //         result[index] = result[index - base_index] + result[base_index];
-    //     }
-    //     index++;
-    // }
-    // return result;
+// let result = new Array(num + 1);
+// result[0] = 0;
+// if (num === 0) {
+//     return result;
+// }
+// let index = 1;
+// let power2 = 1;
+// while (index <= num) {
+//     if (power2 === index) {
+//         result[index] = 1;
+//         power2 *= 2;
+//     } else {
+//         let base_index = power2 / 2;
+//         result[index] = result[index - base_index] + result[base_index];
+//     }
+//     index++;
+// }
+// return result;
