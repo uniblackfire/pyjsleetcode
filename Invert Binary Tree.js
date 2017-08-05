@@ -34,6 +34,8 @@ var invertTree = function(root) {
 
     return root;
 };
+
+//BFS
 var invertTree2 = function(root) {
     if (!root) {
         return null;
@@ -58,6 +60,7 @@ var invertTree2 = function(root) {
     return root;
 };
 
+//DFS
 var invertTree3 = function(root) {
     if (!root) {
         return null;
