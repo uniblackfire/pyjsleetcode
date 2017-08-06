@@ -24,11 +24,11 @@ var postOrder = function (node) {
 /************DFS with iteration************/
 var preOrderByIteration = function (node) {
     if (!node) {
-        return null;
+        return;
     }
     let stack = [];
     stack.push(node);
-    while (stack.length !== 0) {
+    while (stack.length) {
         node = stack.pop();
         console.log(node.val);
         if (node.right) {
@@ -41,7 +41,7 @@ var preOrderByIteration = function (node) {
 };
 var inOrderByIteration = function (node) {
     if (!node) {
-        return null;
+        return;
     }
     let stack = [];
     while (stack.length || node) {
@@ -55,26 +55,25 @@ var inOrderByIteration = function (node) {
         }
     }
 };
-var posOrderByIteration1 = function (node) {
+var postOrderByIteration1 = function (node) {
     if (!node) {
         return null;
     }
     let stack = [];
     stack.push(node);
-    let tmp = null;
-    while (stack.length !== 0) {
-        tmp = stack[stack.length - 1];
-        if (tmp.left && node !== tmp.left && node !== tmp.right) {
-            stack.push(tmp.left);
-        } else if (tmp.right && node !== tmp.right) {
-            stack.push(tmp.right);
+    while (stack.length) {
+        let stackTop = stack[stack.length - 1];
+        if (stackTop.left && node !== stackTop.left && node !== stackTop.right) {
+            stack.push(stackTop.left);
+        } else if (stackTop.right && node !== stackTop.right) {
+            stack.push(stackTop.right);
         } else {
-            console.log(stack.pop().val);
-            node = tmp;
+            node = stack.pop();
+            console.log(node.val);
         }
     }
 };
-var posOrderByIteration2 = function (node) {
+var postOrderByIteration2 = function (node) {
     if (node) {
         let s1 = [];
         let s2 = [];
@@ -224,7 +223,7 @@ function test() {
     let left = new TreeNode(2);
     let right = new TreeNode(13);
     let rightsright = new TreeNode(23);
-    let leftsright = new TreeNode(23);
+    let leftsright = new TreeNode(1);
     root.left = left;
     root.right = right;
     left.right = leftsright;
@@ -242,9 +241,9 @@ function test() {
     console.log('inOrderByIteration');
     inOrderByIteration(root);
     console.log('posOrderByIteration1');
-    posOrderByIteration1(root);
+    postOrderByIteration1(root);
     console.log('posOrderByIteration2');
-    posOrderByIteration2(root);
+    postOrderByIteration2(root);
     console.log('morrisPre');
     morrisPre(root);
     console.log('morrisIn');
