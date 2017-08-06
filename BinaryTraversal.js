@@ -78,7 +78,7 @@ var postOrderByIteration2 = function (node) {
         let s1 = [];
         let s2 = [];
         s1.push(node);
-        while (s1.length !== 0) {
+        while (s1.length) {
             node = s1.pop();
             s2.push(node);
             if (node.left) {
