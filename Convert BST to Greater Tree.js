@@ -20,7 +20,8 @@
  * }
  */
 
-
+var traversalUtil = require('./BinaryTraversal');
+var TreeNode = traversalUtil.TreeNode;
 // Recursive, Iterative, and Morris Traversal
 /**
  * @param {TreeNode} root
@@ -29,13 +30,15 @@
 var convertBST = function (root) {
     let sum = 0;
 
-    function recursion(root) {
-        if (!root) return null;
-        recursion(root.right);
-        root.val += sum;
-        sum = root.val;
-        recursion(root.left);
-        return root;
+    function recursion(current_node) {
+        if (!current_node) return null;
+        recursion(current_node.right);
+
+        current_node.val += sum;
+        sum = current_node.val;
+
+        recursion(current_node.left);
+        return current_node;
     }
 
     return recursion(root);
@@ -45,45 +48,56 @@ var convertBST2 = function (root) {
     if (!root) return null;
     let sum = 0;
     let stack = [];
-    let cur = root;
-    while (stack.length || cur) {
-        while (cur) {
-            stack.push(cur);
-            cur = cur.right;
+    let current_node = root;
+    while (stack.length || current_node) {
+        while (current_node) {
+            stack.push(current_node);
+            current_node = current_node.right;
         }
-        cur = stack.pop();
-        let tmp = cur.val;
-        cur.val += sum;
-        sum += tmp;
-        cur = cur.left;
+        current_node = stack.pop();
+
+        current_node.val += sum;
+        sum = current_node.val;
+        current_node = current_node.left;
     }
     return root;
 };
 
 var convertBST3 = function (root) {
-    let cur = root;
+    let current_node = root;
     let sum = 0;
-    while (cur) {
-        if (!cur.right) {
-            let tmp = cur.val;
-            cur.val += sum;
-            sum += tmp;
-            cur = cur.left;
+    while (current_node) {
+        if (!current_node.right) {
+            current_node.val += sum;
+            sum = current_node.val;
+
+            current_node = current_node.left;
         } else {
-            let prev = cur.right;
-            while (prev.left && prev.left !== cur)
+            let prev = current_node.right;
+            while (prev.left && prev.left !== current_node) {
                 prev = prev.left;
+            }
             if (!prev.left) {
-                prev.left = cur;
-                cur = cur.right;
+                prev.left = current_node;
+                current_node = current_node.right;
             } else {
                 prev.left = null;
-                let tmp = cur.val;
-                cur.val += sum;
-                sum += tmp;
-                cur = cur.left;
+
+                current_node.val += sum;
+                sum = current_node.val;
+
+                current_node = current_node.left;
             }
         }
     }
     return root;
 };
+
+
+let root = new TreeNode(5);
+let left = new TreeNode(2);
+let right = new TreeNode(13);
+root.left = left;
+root.right = right;
+convertBST3(root);
+traversalUtil.binaryTreeBFSTraversal(root);
