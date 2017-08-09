@@ -23,7 +23,7 @@ var helper = function (nums, low, high) {
     if (low > high) { // Done
         return null;
     }
-    var mid = (low + (high - low) / 2) >> 0;
+    var mid = ~~(low + (high - low) / 2);
     var node = new TreeNode(nums[mid]);
     node.left = helper(nums, low, mid - 1);
     node.right = helper(nums, mid + 1, high);
