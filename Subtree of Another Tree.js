@@ -51,7 +51,7 @@ var isSubtree = function (s, t) {
         stack.push(s);
         while (stack.length) {
             let stackTop = stack.pop();
-            if (!stackTop)
+            if (!stackTop) // if stackTop is null
                 result += ',#'; // Appending # in order to handle same values but not subtree cases
             else
                 result += ',' + stackTop.val;
