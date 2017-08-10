@@ -46,21 +46,21 @@
  */
 var isSubtree = function (s, t) {
     function generatePreOrderString(s) {
-        let sb = '';
-        let stacktree = [];
-        stacktree.push(s);
-        while (stacktree.length) {
-            let popelem = stacktree.pop();
-            if (!popelem)
-                sb += ',#'; // Appending # in order to handle same values but not subtree cases
+        let result = '';
+        let stack = [];
+        stack.push(s);
+        while (stack.length) {
+            let stackTop = stack.pop();
+            if (!stackTop)
+                result += ',#'; // Appending # in order to handle same values but not subtree cases
             else
-                sb += ',' + popelem.val;
-            if (popelem) {
-                stacktree.push(popelem.right);
-                stacktree.push(popelem.left);
+                result += ',' + stackTop.val;
+            if (stackTop) {
+                stack.push(stackTop.right);
+                stack.push(stackTop.left);
             }
         }
-        return sb.toString();
+        return result.toString();
     }
 
     let spreorder = generatePreOrderString(s);
