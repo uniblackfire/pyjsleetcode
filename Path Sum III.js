@@ -49,13 +49,14 @@ var pathSum = function (root, sum) {
     let pre = root;
     let stack = [];
     while (stack.length || root) {
-        for (; root; root = root.left) {
+        while (root) {
             currentSum += root.val;
             if (preSum[currentSum - sum]) {
                 result += preSum[currentSum - sum];
             }
             preSum[currentSum] = (preSum[currentSum] || 0) + 1;
             stack.push(root);
+            root = root.left;
         }
 
         if (stack.length) {
