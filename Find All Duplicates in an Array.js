@@ -18,16 +18,27 @@
  * @return {number[]}
  */
 var findDuplicates = function (nums) {
+    // let result = [];
+    // nums.sort((x, y) => x - y);
+    // for (let i = 1; i < nums.length; i++) {
+    //     if (nums[i - 1] === nums[i]) {
+    //         result.push(nums[i]);
+    //     }
+    // }
+    // return result;
     let result = [];
-    nums.sort((x, y) => x - y);
-    for (let i = 1; i < nums.length; i++) {
-        if (nums[i - 1] === nums[i]) {
-            result.push(nums[i]);
+    let len = nums.length;
+    for (let i = 0; i < len; i++) {
+        let idx = nums[i] % len;
+        if (nums[idx] > len) {
+            result.push(nums[idx]%len);
+        } else {
+            nums[idx] += len;
         }
     }
     return result;
 };
-
+console.log(findDuplicates([2, 2]));
 //
 // O(1) space not including the input and output variables
 //
