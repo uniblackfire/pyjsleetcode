@@ -31,7 +31,7 @@ var findDuplicates = function (nums) {
     for (let i = 0; i < len; i++) {
         let idx = nums[i] % len;
         if (nums[idx] > len) {
-            result.push(nums[idx]%len);
+            result.push(idx || len);
         } else {
             nums[idx] += len;
         }
