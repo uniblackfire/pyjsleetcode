@@ -48,3 +48,44 @@ var findDuplicates = function (nums) {
 // else:
 // nums[abs(x)-1] *= -1
 // return res
+//
+//
+//
+//
+//
+// Hi there! I couldn't find absolutely the same idea as mine in the discussions, therefore decided to share it. Basic idea is to put each element to the corresponding position, so that a[0] = 1, a[1] = 2, a[2] = 3 ... etc. (1<=a[i]<=n).
+// For understanding, find below the code with comments. I think it is not hard to read and understand.
+//
+// public class Solution {
+//     public List<Integer> findDuplicates(int[] nums) {
+//         List<Integer> res=  new ArrayList<>();
+//         if(nums == null || nums.length == 0) return res;
+//         int i = 0;
+//         int n = nums.length;
+//         while(i<n){ //traverse the array  till the end
+//             if(nums[i] == i+1){  // if number stays at it's supposed position, just continue
+//                 i++;
+//                 continue;
+//             }
+//             int num = nums[i];
+//             if(num == -1){ // if the duplicate number in that position is already found continue
+//                 i++;
+//                 continue;
+//             }
+//             if(nums[num-1] == num){ // if current  num is equals to the number at supposed position,
+//                 res.add(num);       // then it is duplicate.
+//                 nums[i] = -1;       // mark this position, in order to denote that duplicate has found
+//                 i++;
+//                 continue;
+//             }
+//             swap(nums, i, num-1);  // if current numbers supposed position is occupied by another number swap and consider that number
+//         }
+//         return res;
+//     }
+//
+//     public void swap(int nums[], int i ,int j){
+//         int tmp = nums[i];
+//         nums[i] = nums[j];
+//         nums[j] = tmp;
+//     }
+// }
