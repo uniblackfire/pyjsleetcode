@@ -20,7 +20,6 @@ var isPowerOfTwo = function (n) {
     //
     // For example, n =14 = 0b0000...1110, and (n - 1) = 13 = 0b0000...1101.
     //
-    // return n>0 && ((n & (n-1)) == 0);
     // Time complexity = O(1)
     // return n>0 && ((n & (n-1)) == 0);
     ////////////
