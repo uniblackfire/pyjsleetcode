@@ -26,7 +26,18 @@ var isPowerOfTwo = function (n) {
     // let str = n.toString(2);
     // let zeros = '1' + new Array(str.length - 1).fill('0').join('');
     // return str === zeros;
+    ///
+    if (n < 1) return false;
+    let tmp = n;
+    let power = 1;
+    while (tmp !== 0) {
+        tmp >>= 1;
+        power <<= 1;
+        power >>>= 0;
+    }
+    power >>>= 1;
+    return (n ^ power) === 0;
 };
 
 
-console.log(isPowerOfTwo(1073741824));//1073741824
+console.log(isPowerOfTwo(0));//1073741824
