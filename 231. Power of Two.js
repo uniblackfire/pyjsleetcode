@@ -36,7 +36,7 @@ var isPowerOfTwo = function (n) {
         power >>>= 0;
     }
     power >>>= 1;
-    return (n ^ power) === 0;
+    return n === power; // (n ^ power) === 0
 };
 
 
