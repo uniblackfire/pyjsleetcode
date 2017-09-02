@@ -58,6 +58,24 @@ var predictTheWinner = function (nums) {
 };
 
 var predictTheWinner2 = function (nums) {
+    let n = nums.length;
+    let dp = new Array(nums.length);
+    for (let i = 0; i < nums.length; i++) {
+        dp[i] = new Array(nums.length);
+    }
+    for (let i = 0; i < n; i++) {
+        dp[i][i] = nums[i];
+    }
+    for (let len = 1; len < n; len++) {
+        for (let i = 0; i < n - len; i++) {
+            let j = i + len;
+            dp[i][j] = Math.max(nums[i] - dp[i + 1][j], nums[j] - dp[i][j - 1]);
+        }
+    }
+    return dp[0][n - 1] >= 0;
+};
+
+var predictTheWinner3 = function (nums) {
     if (!nums) {
         return true;
     }
@@ -77,6 +95,7 @@ var predictTheWinner2 = function (nums) {
     }
     return dp[len - 1] >= 0;
 };
+console.log(predictTheWinner2([1, 5, 2]));
 // 1, The first step is to break the question into the sub-problems that we can program. From the question, the winning goal is that "The player with the maximum score wins". So one way to approach it is that we may want to find a way to maximize player 1's sum and check if it is greater than player 2's sum (or more than half of the sum of all numbers). Another way, after noting that the sum of all numbers is fixed, I realized that it doesn't matter how much player 1's total sum is as long as the sum is no less than player 2's sum. No matter how, I think we can easily recognize that it is a recursive problem where we may use the status on one step to calculate the answer for the next step. It is a common way to solve game problems. So we may start with using a brutal force recursive method to solve this one.
 //
 // 2, However, we always want to do better than brutal force. We may easily notice that there will be lots of redundant calculation. For example, "player 1 picks left, then player 2 picks left, then player 1 picks right, then player 2 picks right" will end up the same as "player 1 picks right, then player 2 picks right, then player 1 picks left, then player 2 picks left". So, we may want to use dynamic programming to save intermediate states.
