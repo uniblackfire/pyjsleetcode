@@ -26,10 +26,10 @@ var minDepth = function (root) {
         let queueLen = queue.length;
         let i = 0;
         while (i < queueLen) {
-            let node = queue[0];
+            let node = queue.shift();
             if (node.left) queue.push(node.left);
             if (node.right) queue.push(node.right);
-            queue.shift();
+
             if (!node.left && !node.right) return depth;
 
             i++;
