@@ -24,15 +24,17 @@ var minDepth = function (root) {
     while (queue.length) {
         depth++;
         let queueLen = queue.length;
-        for (let i = 0; i < queueLen; i++) {
+        let i = 0;
+        while (i < queueLen) {
             let node = queue[0];
             if (node.left) queue.push(node.left);
             if (node.right) queue.push(node.right);
             queue.shift();
             if (!node.left && !node.right) return depth;
+
+            i++;
         }
     }
-    return -1; //For the compiler thing. The code never runs here.
 };
 
 var minDepth2 = function (root) {
