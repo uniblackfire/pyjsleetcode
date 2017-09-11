@@ -55,12 +55,11 @@ var levelOrderBottom2 = function (root) {
     let queue = [];
     queue.push(root);
     while (queue.length) {
-        let tn = [];
-        let cnt = queue.length;
-        for (let i = 0; i < cnt; ++i) {
-            let cur = queue[0];
-            tn.push(cur.val);
-            queue.shift();
+        let levelList = [];
+        let queueLen = queue.length;
+        for (let i = 0; i < queueLen; ++i) {
+            const cur = queue.shift();
+            levelList.push(cur.val);
             if (cur.left)
                 queue.push(cur.left);
             if (cur.right)
@@ -68,7 +67,7 @@ var levelOrderBottom2 = function (root) {
         }
         //do not use insert() here,it cost too much time.
         //use reverse() insteadly
-        res.push(tn);
+        res.push(levelList);
     }
     return res.reverse();
 };
