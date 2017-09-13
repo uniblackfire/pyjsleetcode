@@ -91,6 +91,7 @@ var maxProfit2 = function (k, prices) {
 //
 // after all you bought it on day jj and the "max profit" becomes max(dp[i-1][jj] - prices[jj]), this isn't the max profit on day jj with at most i-1 transaction, this is the max profit where you already bought the stock on day jj with at most i transactions.
 
+// TODO: not fully understand
 var maxProfit3 = function (k, prices) {
     if (k < 1 || !prices || !prices.length) {
         return 0;
@@ -108,17 +109,17 @@ var maxProfit3 = function (k, prices) {
     }
 
     //DP for at most k trades
-    let buy = new Array(k + 1).fill(Number.MIN_SAFE_INTEGER);
-    let sell = new Array(k + 1).fill(0);
+    let loss = new Array(k + 1).fill(Number.MIN_SAFE_INTEGER);
+    let profit = new Array(k + 1).fill(0);
 
     for (let i = 0; i < prices.length; i++) {
         for (let j = k; j > 0; j--) {
-            sell[j] = Math.max(sell[j], prices[i] + buy[j]);
-            buy[j] = Math.max(buy[j], sell[j - 1] - prices[i]);
+            profit[j] = Math.max(profit[j], prices[i] + loss[j]);
+            loss[j] = Math.max(profit[j - 1] - prices[i], loss[j]);
         }
     }
 
-    return sell[k];
+    return profit[k];
 };
 
-console.log(maxProfit3(2, [3, 6, 1, 5, 0, 7]));
+console.log(maxProfit3(1, [3, 6, 1, 5]));
