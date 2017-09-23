@@ -30,11 +30,11 @@ var buildTree = function (preorder, inorder) {
         if (preStart > preEnd || inStart > inEnd) return null;
 
         let root = new TreeNode(preorder[preStart]);
-        let inRoot = inMap.get(root.val);
-        let numsLeft = inRoot - inStart;
+        let inorderRootIndex = inMap.get(root.val);
+        let nodeCountOfLeftSubtree = inorderRootIndex - inStart;
 
-        root.left = recursion(preorder, preStart + 1, preStart + numsLeft, inorder, inStart, inRoot - 1, inMap);
-        root.right = recursion(preorder, preStart + numsLeft + 1, preEnd, inorder, inRoot + 1, inEnd, inMap);
+        root.left = recursion(preorder, preStart + 1, preStart + nodeCountOfLeftSubtree, inorder, inStart, inorderRootIndex - 1, inMap);
+        root.right = recursion(preorder, preStart + nodeCountOfLeftSubtree + 1, preEnd, inorder, inorderRootIndex + 1, inEnd, inMap);
 
         return root;
     }
