@@ -31,23 +31,24 @@
  * @return {number[]}
  */
 var maxSlidingWindow = function (nums, k) {
-    let len = nums.length;
+    let len = nums.length; // 8
     if (len === 0) {
         return nums;
     }
-    let result = new Array(len - k + 1);
-    let dq = [];
+    let result = new Array(len - k + 1); // 6
+    let indexArr = [];
     for (let i = 0; i < len; i++) {
-        const cmp = i - k + 1;
-        if (dq.length && dq[0] < cmp) {
-            dq.shift();
+        const resultIndex = i - k + 1; // -2 , 6
+        if (indexArr.length && indexArr[0] < resultIndex) {
+            indexArr.shift();
         }
-        while (dq.length && nums[i] >= nums[dq[dq.length - 1]]) {
-            dq.pop();
+        while (indexArr.length && nums[i] >= nums[indexArr[indexArr.length - 1]]) {
+            // pop out all index item that less or equal to nums[i]
+            indexArr.pop();
         }
-        dq.push(i);
-        if (cmp >= 0) {
-            result[cmp] = nums[dq[0]];
+        indexArr.push(i);
+        if (resultIndex >= 0) {
+            result[resultIndex] = nums[indexArr[0]];
         }
     }
     return result;
@@ -59,18 +60,18 @@ var maxSlidingWindow2 = function (nums, w) {
 
     if (!numsLen) return [];
 
-    const max_left = new Array(numsLen);
-    const max_right = new Array(numsLen);
+    const max_left = new Array(numsLen).fill(0);
+    const max_right = new Array(numsLen).fill(0);
 
     max_left[0] = nums[0];
     max_right[numsLen - 1] = nums[numsLen - 1];
     console.log(max_left)
     console.log(max_right)
     console.log('------')
-    for (let i = 1; i < numsLen; i++) {
+    for (let i = 1; i < numsLen; i++) { // 1, 7
         max_left[i] = (i % w === 0) ? nums[i] : Math.max(max_left[i - 1], nums[i]);
 
-        const j = numsLen - 1 - i;
+        const j = numsLen - 1 - i;//6, 0
         max_right[j] = (j % w === 0) ? nums[j] : Math.max(max_right[j + 1], nums[j]);
         console.log(max_left)
         console.log(max_right)
