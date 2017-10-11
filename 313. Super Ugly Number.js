@@ -116,7 +116,7 @@ var nthSuperUglyNumber3 = function (n, primes) {
 
     for (let i = 0; i < primes.length; i++) {
         // n[0] current value, n[1] current index, n[2] base value
-        pq.offer([primes[i], 0, primes[i]]);
+        pq.push([primes[i], 0, primes[i]]);
     }
 
     for (let i = 1; i < n; i++) {
@@ -126,6 +126,7 @@ var nthSuperUglyNumber3 = function (n, primes) {
             let pqItem = pq.poll();
             pqItem[0] = pqItem[2] * ugly[pqItem[1]];
             pqItem[1] += 1;
+
             pq.offer(pqItem);
         }
     }
