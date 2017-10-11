@@ -83,6 +83,7 @@ var nthSuperUglyNumber3 = function (n, primes) {
     //     return this.data[0];
     // };
 
+    //http://x-wei.github.io/heap-summary.html
     class PriorityQueue extends Array {
         constructor(cmpFunc) {
             super();
