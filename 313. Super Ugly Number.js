@@ -96,6 +96,8 @@ var nthSuperUglyNumber3 = function (n, primes) {
                 i++;
             }
             this.splice(i, 0, element);
+            // this.push(element);
+            // this.sort(this.cmpFunc)
         }
 
         poll() {
