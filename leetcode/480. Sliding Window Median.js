@@ -141,7 +141,7 @@ var medianSlidingWindow2 = function (nums, k) {
 
     const medians = [];
     const rightIdx = k / 2 >>> 0;
-    const leftIdx = k + ~rightIdx;
+    const leftIdx = k - rightIdx - 1;  //k + ~rightIdx;
     for (let i = 0; i < resultLen; i++) {
         medians.push((window[leftIdx] + window[rightIdx]) / 2);
         window.splice(window.indexOf(nums[i]), 1);
