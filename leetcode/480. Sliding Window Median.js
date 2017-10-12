@@ -128,7 +128,6 @@ var medianSlidingWindow = function (nums, k) {
 
 var medianSlidingWindow2 = function (nums, k) {
     const window = nums.slice(0, k).sort((x, y) => x - y);
-    const medians = [];
     const bArr = nums.slice(k);
     bArr.push(0);
 
@@ -140,17 +139,16 @@ var medianSlidingWindow2 = function (nums, k) {
         arr.splice(i, 0, val);
     }
 
-    const len = Math.min(bArr.length, nums.length);
-    for (let i = 0; i < len; i++) {
-        let a = nums[i];
-        let b = bArr[i];
-        const idx = k / 2 >>> 0;
-        medians.push((window[idx] + window[window.length + ~idx]) / 2);
-        window.splice(window.indexOf(a), 1);
+    const medians = [];
+    const rightIdx = k / 2 >>> 0;
+    const leftIdx = k + ~rightIdx;
+    for (let i = 0, len = bArr.length; i < len; i++) {
+        medians.push((window[leftIdx] + window[rightIdx]) / 2);
+        window.splice(window.indexOf(nums[i]), 1);
         // keep window ordered
-        inSort(window, b);
+        inSort(window, bArr[i]);
     }
     return medians;
 };
 
-console.log(medianSlidingWindow2([9, 7, 0, 3, 9, 8, 6, 5, 7, 6], 2));
+console.log(medianSlidingWindow2([9, 7, 0, 3, 9, 8, 6, 5, 7, 6], 3));
