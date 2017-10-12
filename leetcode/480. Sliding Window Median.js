@@ -126,4 +126,31 @@ var medianSlidingWindow = function (nums, k) {
     return result;
 };
 
-console.log(medianSlidingWindow([9, 7, 0, 3, 9, 8, 6, 5, 7, 6], 2));
+var medianSlidingWindow2 = function (nums, k) {
+    const window = nums.slice(0, k).sort((x, y) => x - y);
+    const medians = [];
+    const bArr = nums.slice(k);
+    bArr.push(0);
+
+    function inSort(arr, val) {
+        let i = 0;
+        while (i < arr.length && arr[i] < val) {
+            i++;
+        }
+        arr.splice(i, 0, val);
+    }
+
+    const len = Math.min(bArr.length, nums.length);
+    for (let i = 0; i < len; i++) {
+        let a = nums[i];
+        let b = bArr[i];
+        const idx = k / 2 >>> 0;
+        medians.push((window[idx] + window[window.length + ~idx]) / 2);
+        window.splice(window.indexOf(a), 1);
+        // keep window ordered
+        inSort(window, b);
+    }
+    return medians;
+};
+
+console.log(medianSlidingWindow2([9, 7, 0, 3, 9, 8, 6, 5, 7, 6], 2));
