@@ -30,11 +30,11 @@ var buildTree = function (preorder, inorder) {
         if (preStart > preEnd || inStart > inEnd) return null;
 
         let root = new TreeNode(preorder[preStart]);
-        let inorderRootIndex = inMap.get(root.val);
-        let nodeCountOfLeftSubtree = inorderRootIndex - inStart;
+        let inRootIdx = inMap.get(root.val);
+        let leftSubtreeLen = inRootIdx - inStart;
 
-        root.left = recursion(preorder, preStart + 1, preStart + nodeCountOfLeftSubtree, inorder, inStart, inorderRootIndex - 1, inMap);
-        root.right = recursion(preorder, preStart + nodeCountOfLeftSubtree + 1, preEnd, inorder, inorderRootIndex + 1, inEnd, inMap);
+        root.left = recursion(preorder, preStart + 1, preStart + leftSubtreeLen, inorder, inStart, inRootIdx - 1, inMap);
+        root.right = recursion(preorder, preStart + leftSubtreeLen + 1, preEnd, inorder, inRootIdx + 1, inEnd, inMap);
 
         return root;
     }
@@ -85,17 +85,17 @@ var buildTree = function (preorder, inorder) {
 // (c) Repeat step (a) and step (c) until we create all nodes.
 
     if (!preorder.length) return null;
-    let s = [];
+    let stack = [];
     let root = new TreeNode(preorder[0]), cur = root;
     for (let i = 1, j = 0; i < preorder.length; i++) {
         if (cur.val !== inorder[j]) {
             cur.left = new TreeNode(preorder[i]);
-            s.push(cur);
+            stack.push(cur);
             cur = cur.left;
         } else {
             j++;
-            while (s.length && s[s.length - 1].val === inorder[j]) {
-                cur = s.pop();
+            while (stack.length && stack[stack.length - 1].val === inorder[j]) {
+                cur = stack.pop();
                 j++;
             }
             cur = cur.right = new TreeNode(preorder[i]);
