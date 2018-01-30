@@ -28,14 +28,12 @@ var wordPattern = function (pattern, str) {
                 return false;
             }
         } else {
-            let flag = true;
             for (let x of words) {
                 if (x[1] === strArr[i]) {
                     return false;
                 }
             }
-            if (flag)
-                words.set(pattern[i], strArr[i]);
+            words.set(pattern[i], strArr[i]);
         }
     }
     return true;
