@@ -47,10 +47,12 @@ class Solution:
             node1, node2 = queue1.popleft(), queue2.popleft()
             if node1 and node2:
                 node1.val = node1.val + node2.val
+                # add node
                 if (not node1.left) and node2.left:
                     node1.left = TreeNode(0)
                 if (not node1.right) and node2.right:
                     node1.right = TreeNode(0)
+
                 queue1.append(node1.left)
                 queue1.append(node1.right)
                 queue2.append(node2.left)
