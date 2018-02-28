@@ -30,3 +30,14 @@ class Solution:
         :type t2: TreeNode
         :rtype: TreeNode
         """
+        if not t1 and not t2:
+            return None
+        val = 0
+        if t1:
+            val = val + t1.val
+        if t2:
+            val = val + t2.val
+        new_node = TreeNode(val)
+        new_node.left = self.mergeTrees(t1.left if t1 else None, t2.left if t2 else None)
+        new_node.right = self.mergeTrees(t1.right if t1 else None, t2.right if t2 else None)
+        return new_node
